@@ -1,0 +1,25 @@
+### 1. Get all books
+GET http://localhost:8080/campus-library/books
+
+###
+
+### 2. Get book details
+GET http://localhost:8080/campus-library/books/detail?id=1
+
+###
+
+### 3. Get add book form
+GET http://localhost:8080/campus-library/books/add
+
+###
+
+### 4. Add a new book
+POST http://localhost:8080/campus-library/books/add
+Content-Type: application/x-www-form-urlencoded
+
+title=Spring in Action&pages=520&authorId=1
+
+###
+
+### 5. Get all authors
+GET http://localhost:8080/campus-library/authors
