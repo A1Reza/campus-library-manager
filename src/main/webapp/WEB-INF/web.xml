@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?> <!--Deployment Descriptor-->
 
 <web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -7,8 +7,14 @@
              https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
          version="6.0">
 
-    <!-- Root Spring Context Configuration -->
+    <!--This file is the web application Deployment Descriptor file,
+     which is placed in WEB-INF/web.xml and tells the server (like Tomcat) how to deploy the application.
+      Here, Jakarta EE 6.0 and Spring MVC are used.-->
 
+    <!-- Root Spring Context Configuration -->
+    <!--context-param defines an application-wide parameter that is accessible to all components of the application.
+    contextConfigLocation: The convention that Spring uses to find the root ApplicationContext configuration file.
+    classpath:applicationContext.xml: The configuration file is located on the classpath (usually src/main/resources).-->
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>classpath:applicationContext.xml</param-value>
@@ -17,6 +23,13 @@
     <!-- Initialize Root Application Context -->
     <!--This Listener reads the applicationContext.xml file and creates the Root Application Context when the application starts.-->
     <listener>
+        <!--ContextLoaderListener is a ServletContextListener.
+            When the server is started (contextInitialized), this Listener:
+            Reads the value of contextConfigLocation.
+            Loads the applicationContext.xml file.
+            Creates the Root ApplicationContext and stores it in the ServletContext (with the WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE key).
+            When the server is shut down (contextDestroyed), it closes the Context and destroys the beans.
+            This Listener automatically enables @Autowired, @Service, @Repository, etc. in the Root layer.-->
         <listener-class>
             org.springframework.web.context.ContextLoaderListener
         </listener-class>
