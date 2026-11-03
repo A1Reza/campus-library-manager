@@ -77,23 +77,47 @@
     </dependencies>
 
     <build>
-        <finalName>campus-library</finalName>
+        <finalName>campus-library</finalName>  <!--campus-library.war-->
 
         <plugins>
 
             <!-- Java Compiler + Annotation Processors -->
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
+                <groupId>org.apache.maven.plugins</groupId>   <!--This plugin is responsible for compiling Java code.-->
+                <artifactId>maven-compiler-plugin</artifactId>  <!--The name of Plugin.-->
                 <version>3.14.1</version>
 
-                <configuration>
-                    <release>21</release>
+                <configuration> <!--This section specifies the Plugin specific settings.
+                                   That is, we tell the Compiler Plugin how to compile.-->
 
-                    <annotationProcessorPaths>
+                    <release>21</release>  <!--This means that the project's Java code is compiled with the Java 21 standard.-->
+                    <!--release doesn't just specify the compilation version; it also aligns the usable APIs and output Bytecode version with the target version.-->
 
+                    <!--
+                    <maven.compiler.release>21</maven.compiler.release>
+
+                    We had specified the same value in the properties section.
+                    So why is it here again?
+                    Because in this section we are giving the setting directly to the Compiler Plugin.
+                    For simple projects, it is usually enough to define the Property and use it; but in this setting,
+                     we have explicitly specified the release inside the Plugin.
+                    -->
+
+
+                    <annotationProcessorPaths> <!--An Annotation Processor is a tool that checks specific annotations during compilation and can generate code.-->
+                        <!--
+                        Java Source
+                            ↓
+                        Compiler
+                            ↓
+                        Annotation Processor
+                            ↓
+                        Generated Code
+                            ↓
+                        Compiled Classes
+                        -->
                         <path>
-                            <groupId>org.projectlombok</groupId>
+                            <groupId>org.projectlombok</groupId>  <!--This setting tells Maven to consider Lombok as the Annotation Processor at compile time.-->
                             <artifactId>lombok</artifactId>
                             <version>${lombok.version}</version>
                         </path>
@@ -109,6 +133,23 @@
             </plugin>
 
             <!-- WAR Packaging -->
+            <!--This plugin is used to package the project in WAR(Web Application Archive) format.-->
+
+            <!--
+            Simple WAR structure:
+
+            campus-library.war
+            │
+            ├── WEB-INF
+            │   ├── web.xml
+            │   ├── classes
+            │   └── lib
+            │
+            ├── JSP Files
+            └── Other Web Resources
+
+            In our project, JSPs, Spring configurations, and Java classes are placed inside the WAR.
+            -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
