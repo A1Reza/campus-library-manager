@@ -1,25 +1,112 @@
-### 1. Get all books
-GET http://localhost:8080/campus-library/books
+### Campus Library Manager - API Tests
+### Base URL
+@baseUrl = http://localhost:8080/campus-library
+
+### ==========================================
+### 1. BOOKS
+### ==========================================
+
+### Get all books
+GET {{baseUrl}}/books
 
 ###
 
-### 2. Get book details
-GET http://localhost:8080/campus-library/books/detail?id=1
+### Get book details - Clean Code
+GET {{baseUrl}}/books/detail?id=1
 
 ###
 
-### 3. Get add book form
-GET http://localhost:8080/campus-library/books/add
+### Get book details - Effective Java
+GET {{baseUrl}}/books/detail?id=2
 
 ###
 
-### 4. Add a new book
-POST http://localhost:8080/campus-library/books/add
+### Get book details - Refactoring
+GET {{baseUrl}}/books/detail?id=3
+
+###
+
+### Get book details - Non-existing book
+GET {{baseUrl}}/books/detail?id=999
+
+###
+
+### Get book details - Invalid ID
+GET {{baseUrl}}/books/detail?id=abc
+
+### ==========================================
+### 2. AUTHORS
+### ==========================================
+
+### Get all authors
+GET {{baseUrl}}/authors
+
+###
+
+### ==========================================
+### 3. ADD BOOK
+### ==========================================
+
+### Get add book form
+GET {{baseUrl}}/books/add
+
+###
+
+### Add a new book - Robert C. Martin
+POST {{baseUrl}}/books/add
 Content-Type: application/x-www-form-urlencoded
 
 title=Spring in Action&pages=520&authorId=1
 
 ###
 
-### 5. Get all authors
-GET http://localhost:8080/campus-library/authors
+### Add another book - Joshua Bloch
+POST {{baseUrl}}/books/add
+Content-Type: application/x-www-form-urlencoded
+
+title=Java Concurrency in Practice&pages=384&authorId=2
+
+###
+
+### Add another book - Martin Fowler
+POST {{baseUrl}}/books/add
+Content-Type: application/x-www-form-urlencoded
+
+title=Patterns of Enterprise Application Architecture&pages=560&authorId=3
+
+###
+
+### ==========================================
+### 4. VERIFY ADDED BOOKS
+### ==========================================
+
+### Get all books after adding new books
+GET {{baseUrl}}/books
+
+###
+
+### Get details of newly added book
+### Assuming this is the fourth book
+GET {{baseUrl}}/books/detail?id=4
+
+###
+
+### Get details of fifth book
+GET {{baseUrl}}/books/detail?id=5
+
+### ==========================================
+### 5. NAVIGATION
+### ==========================================
+
+### Application home page
+GET {{baseUrl}}/
+
+###
+
+### Books page
+GET {{baseUrl}}/books
+
+###
+
+### Authors page
+GET {{baseUrl}}/authors
