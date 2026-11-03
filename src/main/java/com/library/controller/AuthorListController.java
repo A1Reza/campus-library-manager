@@ -26,7 +26,7 @@ public class AuthorListController implements Controller {
 
         modelAndView.addObject(
                 "authors",
-                authorService.findAll()
+                authorService.findAllDto()
         );
 
         return modelAndView;

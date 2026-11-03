@@ -1,7 +1,7 @@
 package com.library.controller;
 
-import com.library.model.Book;
-import com.library.model.Author;
+import com.library.dto.response.BookResponseDto;
+import com.library.dto.response.AuthorResponseDto;
 import com.library.service.AuthorService;
 import com.library.service.BookService;
 
@@ -12,7 +12,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 public class BookDetailController implements Controller {
-    // /books/detail?id=1
 
     private final BookService bookService;
     private final AuthorService authorService;
@@ -32,13 +31,14 @@ public class BookDetailController implements Controller {
 
         Long id = Long.parseLong(idParameter);
 
-        Book book = bookService.findById(id);
+        BookResponseDto book = bookService.findByIdDto(id);
 
         if (book == null) {
             return null;
         }
 
-        Author author = authorService.findById(book.getAuthorId());
+        AuthorResponseDto author =
+                authorService.findByIdDto(book.getAuthorId());
 
         ModelAndView modelAndView =
                 new ModelAndView("book-detail");

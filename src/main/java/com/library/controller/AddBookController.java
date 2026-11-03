@@ -1,6 +1,6 @@
 package com.library.controller;
 
-import com.library.model.Book;
+import com.library.dto.request.BookCreateRequestDto;
 import com.library.service.AuthorService;
 import com.library.service.BookService;
 
@@ -33,7 +33,7 @@ public class AddBookController implements Controller {
 
             modelAndView.addObject(
                     "authors",
-                    authorService.findAll()
+                    authorService.findAllDto()
             );
 
             return modelAndView;
@@ -51,14 +51,14 @@ public class AddBookController implements Controller {
                     request.getParameter("authorId")
             );
 
-            Book book = new Book(
-                    null,
-                    title,
-                    authorId,
-                    pages
-            );
+            BookCreateRequestDto requestDto =
+                    new BookCreateRequestDto(
+                            title,
+                            pages,
+                            authorId
+                    );
 
-            bookService.add(book);
+            bookService.add(requestDto);
 
             response.sendRedirect(
                     request.getContextPath() + "/books"

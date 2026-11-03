@@ -2,6 +2,7 @@ package com.library.controller;
 
 import com.library.service.AuthorService;
 import com.library.service.BookService;
+
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.Controller;
 
@@ -26,7 +27,10 @@ public class BookListController implements Controller {
 
         ModelAndView modelAndView = new ModelAndView("books");
 
-        modelAndView.addObject("books", bookService.findAll());
+        modelAndView.addObject(
+                "books",
+                bookService.findAllDto()
+        );
 
         modelAndView.addObject(
                 "authorNames",
