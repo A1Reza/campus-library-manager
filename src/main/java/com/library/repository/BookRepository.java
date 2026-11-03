@@ -29,7 +29,17 @@ public class BookRepository {
                 .orElse(null);
     }
 
+
     public void add(Book book) {
+
+        Long newId = books.stream()
+                .map(Book::getId)
+                .max(Long::compareTo)
+                .orElse(0L) + 1L;
+
+        book.setId(newId);
+
         books.add(book);
     }
+
 }
